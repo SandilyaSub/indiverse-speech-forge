@@ -22,7 +22,7 @@ const InputPage = () => {
   const [speakerCount, setSpeakerCount] = useState('1');
   const [gender, setGender] = useState('male');
   const [speakerName, setSpeakerName] = useState('');
-  const [voiceSelection, setVoiceSelection] = useState('');
+  const [voiceSelection, setVoiceSelection] = useState('voice1'); // Changed default to 'voice1' from empty string
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -113,7 +113,6 @@ const InputPage = () => {
                     onChange={setVoiceSelection}
                     label=""
                     languages={[
-                      { code: '', name: 'Select a voice (optional)' },
                       { code: 'voice1', name: 'Voice 1 - Male' },
                       { code: 'voice2', name: 'Voice 2 - Female' },
                       { code: 'voice3', name: 'Voice 3 - Neutral' },

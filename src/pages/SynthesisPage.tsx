@@ -100,12 +100,7 @@ const SynthesisPage = () => {
       <StepNavigation
         onBack={() => navigate('/translation')}
         onNext={handleGenerateSpeech}
-        nextLabel={
-          <div className="flex items-center gap-1">
-            <RefreshCw size={16} className={isGenerating ? "animate-spin" : ""} /> 
-            {isGenerating ? "Generating..." : "Generate Speech"}
-          </div>
-        }
+        nextLabel="Generate Speech"
         showValidate={audioGenerated}
         onValidate={handleValidate}
         loading={isLoading}
