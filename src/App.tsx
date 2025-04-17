@@ -20,22 +20,24 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/sessions" element={<SessionSelector />} />
-          <Route path="/input" element={<InputPage />} />
-          <Route path="/transcription" element={<TranscriptionPage />} />
-          <Route path="/translation" element={<TranslationPage />} />
-          <Route path="/synthesis" element={<SynthesisPage />} />
-          <Route path="/validation" element={<ValidationPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <TooltipProvider delayDuration={300}>
+        <div className="relative z-0">
+          <Toaster />
+          <Sonner />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/sessions" element={<SessionSelector />} />
+            <Route path="/input" element={<InputPage />} />
+            <Route path="/transcription" element={<TranscriptionPage />} />
+            <Route path="/translation" element={<TranslationPage />} />
+            <Route path="/synthesis" element={<SynthesisPage />} />
+            <Route path="/validation" element={<ValidationPage />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </TooltipProvider>
     </BrowserRouter>
   </QueryClientProvider>

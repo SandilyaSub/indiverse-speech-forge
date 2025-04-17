@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, UserPlus, ArrowRight } from 'lucide-react';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -68,33 +68,40 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left side - Image and info */}
-      <div className="w-full md:w-1/2 bg-purple-100 hidden md:flex items-center justify-center p-8">
-        <div className="max-w-md text-center">
-          <div className="mb-8">
+      <div className="w-full md:w-1/2 bg-gradient-card hidden md:flex items-center justify-center p-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1721322800607-8c38375eef04')] bg-cover bg-center opacity-10"></div>
+        <div className="max-w-md text-center relative z-10 animate-slide-up">
+          <div className="mb-8 relative">
+            <div className="absolute -inset-1 bg-white/20 rounded-3xl blur-xl opacity-70"></div>
             <img 
-              src="/placeholder.svg" 
+              src="https://images.unsplash.com/photo-1721322800607-8c38375eef04" 
               alt="Registration illustration" 
-              className="mx-auto h-64 w-auto" 
+              className="mx-auto h-64 w-auto rounded-2xl border border-white/20 shadow-lg relative" 
             />
           </div>
-          <h2 className="text-2xl font-bold mb-4">Create your Indic-Translator account</h2>
-          <p className="text-gray-700">
+          <h2 className="text-2xl font-bold mb-4 text-white">Create your Indic-Translator account</h2>
+          <p className="text-white/80">
             Join thousands of users who are translating speech across 15+ Indian languages.
           </p>
         </div>
       </div>
       
       {/* Right side - Registration form */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
+      <div className="w-full md:w-1/2 flex items-center justify-center p-8 bg-gradient-to-br from-white to-purple-50">
+        <div className="w-full max-w-md animate-fade-in">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2">Create an account</h1>
+            <div className="inline-block mb-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indic-purple to-indic-pink flex items-center justify-center shadow-glow">
+                <UserPlus className="h-8 w-8 text-white" />
+              </div>
+            </div>
+            <h1 className="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indic-purple to-indic-pink">Create an account</h1>
             <p className="text-gray-600">Sign up to get started with Indic-Translator</p>
           </div>
           
           <form onSubmit={handleRegister} className="space-y-5">
             <div className="space-y-2">
-              <label htmlFor="name" className="block text-sm font-medium">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Full Name
               </label>
               <Input
@@ -103,12 +110,13 @@ const RegisterPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your full name"
+                className="rounded-lg border-gray-200 focus:border-indic-purple focus:ring-indic-purple/20"
                 required
               />
             </div>
             
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-medium">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email address
               </label>
               <Input
@@ -117,12 +125,13 @@ const RegisterPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
+                className="rounded-lg border-gray-200 focus:border-indic-purple focus:ring-indic-purple/20"
                 required
               />
             </div>
             
             <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-medium">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <div className="relative">
@@ -132,12 +141,13 @@ const RegisterPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Create a password"
+                  className="rounded-lg border-gray-200 focus:border-indic-purple focus:ring-indic-purple/20"
                   required
                 />
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -148,7 +158,7 @@ const RegisterPage = () => {
             </div>
             
             <div className="space-y-2">
-              <label htmlFor="confirm-password" className="block text-sm font-medium">
+              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
                 Confirm Password
               </label>
               <Input
@@ -157,6 +167,7 @@ const RegisterPage = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
+                className="rounded-lg border-gray-200 focus:border-indic-purple focus:ring-indic-purple/20"
                 required
               />
             </div>
@@ -167,31 +178,36 @@ const RegisterPage = () => {
                   id="terms"
                   checked={agreeTerms}
                   onCheckedChange={(checked) => setAgreeTerms(checked as boolean)}
+                  className="text-indic-purple focus:ring-indic-purple/20"
                 />
               </div>
               <div className="ml-3">
-                <label htmlFor="terms" className="text-sm text-gray-600">
+                <label htmlFor="terms" className="text-sm text-gray-700">
                   By creating an account, you agree to our{" "}
-                  <a href="#" className="text-indigo-600 hover:text-indigo-500">Terms of Service</a>
+                  <a href="#" className="text-indic-purple hover:text-indic-purple/80">Terms of Service</a>
                   {" "}and{" "}
-                  <a href="#" className="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
+                  <a href="#" className="text-indic-purple hover:text-indic-purple/80">Privacy Policy</a>
                 </label>
               </div>
             </div>
             
             <Button
               type="submit"
-              className="w-full"
+              className="w-full bg-gradient-to-r from-indic-purple to-indic-pink hover:opacity-90 transition-all py-6 rounded-xl font-semibold text-white shadow-button"
               disabled={isLoading}
             >
-              {isLoading ? "Creating account..." : "Create Account"}
+              {isLoading ? "Creating account..." : (
+                <>
+                  Create Account <ArrowRight className="ml-2 h-5 w-5" />
+                </>
+              )}
             </Button>
           </form>
           
           <div className="mt-8 text-center">
             <p className="text-gray-600">
               Already have an account?{" "}
-              <Link to="/login" className="text-indigo-600 hover:text-indigo-500 font-medium">
+              <Link to="/login" className="text-indic-purple hover:text-indic-purple/80 font-medium">
                 Sign in
               </Link>
             </p>
