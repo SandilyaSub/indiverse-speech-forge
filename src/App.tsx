@@ -4,13 +4,16 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import IndexPage from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import InputPage from "./pages/InputPage";
 import TranscriptionPage from "./pages/TranscriptionPage";
 import TranslationPage from "./pages/TranslationPage";
 import SynthesisPage from "./pages/SynthesisPage";
 import ValidationPage from "./pages/ValidationPage";
+import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import SessionSelector from "./components/session/SessionSelector";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +24,11 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<InputPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/sessions" element={<SessionSelector />} />
+          <Route path="/input" element={<InputPage />} />
           <Route path="/transcription" element={<TranscriptionPage />} />
           <Route path="/translation" element={<TranslationPage />} />
           <Route path="/synthesis" element={<SynthesisPage />} />
