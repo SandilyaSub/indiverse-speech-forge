@@ -1,0 +1,119 @@
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PageContainer from '@/components/layout/PageContainer';
+import Header from '@/components/layout/Header';
+import StepHeading from '@/components/layout/StepHeading';
+import ContentCard from '@/components/layout/ContentCard';
+import StepNavigation from '@/components/navigation/StepNavigation';
+import ProgressBar from '@/components/navigation/ProgressBar';
+import Footer from '@/components/layout/Footer';
+import AudioPlayer from '@/components/audio/AudioPlayer';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { Download, RefreshCw } from 'lucide-react';
+
+const SynthesisPage = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [audioGenerated, setAudioGenerated] = useState(true);
+
+  // Mock audio URL - in a real app this would be generated dynamically
+  const audioUrl = 'https://audio-samples.github.io/samples/mp3/blizzard_unconditional/sample-2.mp3';
+
+  const handleGenerateSpeech = () => {
+    setIsGenerating(true);
+    toast({
+      title: "Generating Speech",
+      description: "Creating synthesized speech in Hindi. This may take a moment..."
+    });
+    
+    setTimeout(() => {
+      setIsGenerating(false);
+      setAudioGenerated(true);
+      toast({
+        title: "Speech Generated",
+        description: "Successfully created synthesized audio in Hindi"
+      });
+    }, 2000);
+  };
+  
+  const handleDownload = () => {
+    toast({
+      title: "Downloading",
+      description: "Saving synthesized speech to your device"
+    });
+  };
+
+  const handleValidate = () => {
+    setIsLoading(true);
+    
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate('/validation');
+    }, 1500);
+  };
+
+  const steps = ['Input', 'Transcription', 'Translation', 'Synthesis', 'Validation'];
+
+  return (
+    <PageContainer>
+      <Header />
+      
+      <ProgressBar steps={steps} currentStep={3} />
+      
+      <StepHeading stepNumber={4} title="Speech Synthesis" />
+      
+      <ContentCard>
+        <div className="mb-6">
+          <h3 className="text-lg font-medium mb-6">Generating Speech in Hindi</h3>
+          
+          {audioGenerated ? (
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-md font-medium mb-4">Translated Audio</h4>
+                <AudioPlayer 
+                  audioUrl={audioUrl} 
+                  allowDownload={false}
+                />
+              </div>
+              
+              <div className="flex">
+                <Button
+                  onClick={handleDownload}
+                  className="bg-indic-green hover:bg-indic-green/90 flex gap-1"
+                >
+                  <Download size={16} /> Download
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-500 mb-4">No audio has been generated yet. Click the button below to create synthesized speech.</p>
+            </div>
+          )}
+        </div>
+      </ContentCard>
+      
+      <StepNavigation
+        onBack={() => navigate('/translation')}
+        onNext={handleGenerateSpeech}
+        nextLabel={
+          <div className="flex items-center gap-1">
+            <RefreshCw size={16} className={isGenerating ? "animate-spin" : ""} /> 
+            {isGenerating ? "Generating..." : "Generate Speech"}
+          </div>
+        }
+        showValidate={audioGenerated}
+        onValidate={handleValidate}
+        loading={isLoading}
+      />
+      
+      <Footer />
+    </PageContainer>
+  );
+};
+
+export default SynthesisPage;
