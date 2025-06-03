@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageContainer from '@/components/layout/PageContainer';
@@ -6,7 +5,7 @@ import Header from '@/components/layout/Header';
 import StepHeading from '@/components/layout/StepHeading';
 import ContentCard from '@/components/layout/ContentCard';
 import UrlInput from '@/components/media/UrlInput';
-import AudioRecorder from '@/components/audio/AudioRecorder';
+import AudioUploader from '@/components/audio/AudioUploader';
 import LanguageSelector from '@/components/forms/LanguageSelector';
 import NumberSelector from '@/components/forms/NumberSelector';
 import GenderSelector from '@/components/forms/GenderSelector';
@@ -26,18 +25,18 @@ const InputPage = () => {
   const [voiceSelection, setVoiceSelection] = useState('voice1');
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
   const [mediaPlatform, setMediaPlatform] = useState<'youtube' | 'instagram' | null>(null);
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const [audioFile, setAudioFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [processingStage, setProcessingStage] = useState<'download' | 'transcription' | null>(null);
 
   const handleUrlSubmitted = (url: string, platform: 'youtube' | 'instagram') => {
     setMediaUrl(url);
     setMediaPlatform(platform);
-    setAudioBlob(null);
+    setAudioFile(null);
   };
 
-  const handleRecordingComplete = (blob: Blob) => {
-    setAudioBlob(blob);
+  const handleFileSelected = (file: File) => {
+    setAudioFile(file);
     setMediaUrl(null);
     setMediaPlatform(null);
   };
@@ -96,7 +95,7 @@ const InputPage = () => {
           <div className="text-md-on-surface-variant font-medium">OR</div>
         </div>
         
-        <AudioRecorder onRecordingComplete={handleRecordingComplete} />
+        <AudioUploader onFileSelected={handleFileSelected} />
       </ContentCard>
       
       <ContentCard className="bg-md-surface border border-md-outline-variant">

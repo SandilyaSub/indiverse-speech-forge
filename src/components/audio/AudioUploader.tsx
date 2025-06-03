@@ -48,13 +48,15 @@ const AudioUploader = ({ onFileSelected }: AudioUploaderProps) => {
   };
 
   return (
-    <div className="flex flex-col items-start">
-      <h3 className="flex items-center gap-2 font-medium mb-3">
-        <FileAudio size={20} className="text-indic-purple" /> Upload Audio
+    <div className="flex flex-col items-start w-full">
+      <h3 className="flex items-center gap-2 font-medium mb-3 text-md-on-surface">
+        <FileAudio size={20} className="text-md-primary" /> Upload Audio File
       </h3>
-      <p className="text-sm text-gray-500 mb-4">Upload an MP3 or WAV file</p>
+      <p className="text-sm text-md-on-surface-variant mb-4">
+        Upload an MP3, WAV, or other audio file for processing
+      </p>
       
-      <div className="w-full">
+      <div className="w-full space-y-4">
         <input 
           type="file" 
           ref={fileInputRef}
@@ -66,25 +68,25 @@ const AudioUploader = ({ onFileSelected }: AudioUploaderProps) => {
         <Button 
           variant="outline" 
           onClick={handleButtonClick}
-          className="flex gap-2 mb-3"
+          className="flex gap-2 mb-3 w-full border-md-outline text-md-on-surface hover:bg-md-surface-variant"
         >
-          <Upload size={16} /> Choose File
+          <Upload size={16} /> Choose Audio File
         </Button>
         
-        <div className="text-sm mb-4">
+        <div className="text-sm mb-4 p-3 bg-md-surface-variant rounded-md min-h-[40px] flex items-center">
           {selectedFile ? (
-            <span>{selectedFile.name}</span>
+            <span className="text-md-on-surface">{selectedFile.name}</span>
           ) : (
-            <span className="text-gray-500">No file selected</span>
+            <span className="text-md-on-surface-variant">No file selected</span>
           )}
         </div>
         
         <Button 
           onClick={handleUpload}
           disabled={!selectedFile}
-          className="bg-indic-purple hover:bg-indic-purple-dark w-full"
+          className="bg-md-primary hover:bg-md-primary/90 text-md-on-primary w-full disabled:bg-md-surface-variant disabled:text-md-on-surface-variant"
         >
-          Upload
+          Process Audio File
         </Button>
       </div>
     </div>
