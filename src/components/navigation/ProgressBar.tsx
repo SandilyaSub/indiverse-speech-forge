@@ -25,10 +25,10 @@ const ProgressBar = ({ steps, currentStep, onStepClick }: ProgressBarProps) => {
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium mb-2",
                   index < currentStep 
-                    ? "bg-indic-purple-dark text-white" 
+                    ? "bg-md-primary text-md-on-primary" 
                     : index === currentStep 
-                      ? "bg-indic-purple text-white" 
-                      : "bg-gray-200 text-gray-600"
+                      ? "bg-md-primary text-md-on-primary" 
+                      : "bg-md-surface-variant text-md-on-surface-variant"
                 )}
               >
                 {index + 1}
@@ -37,8 +37,8 @@ const ProgressBar = ({ steps, currentStep, onStepClick }: ProgressBarProps) => {
                 className={cn(
                   "text-xs text-center",
                   index === currentStep 
-                    ? "text-indic-purple font-medium" 
-                    : "text-gray-500"
+                    ? "text-md-primary font-medium" 
+                    : "text-md-on-surface-variant"
                 )}
               >
                 {step}
@@ -49,7 +49,7 @@ const ProgressBar = ({ steps, currentStep, onStepClick }: ProgressBarProps) => {
               <div 
                 className={cn(
                   "flex-grow h-0.5 mx-2",
-                  index < currentStep ? "bg-indic-purple" : "bg-gray-200"
+                  index < currentStep ? "bg-md-primary" : "bg-md-outline-variant"
                 )}
               />
             )}
