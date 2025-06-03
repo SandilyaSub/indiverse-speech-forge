@@ -34,6 +34,9 @@ const LanguageSelector = ({
   label = "Select Language", 
   languages = DEFAULT_LANGUAGES
 }: LanguageSelectorProps) => {
+  // Filter out any languages with empty codes
+  const validLanguages = languages.filter(language => language.code && language.code.trim() !== '');
+  
   return (
     <div className="w-full">
       <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
@@ -44,7 +47,7 @@ const LanguageSelector = ({
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Languages</SelectLabel>
-            {languages.map(language => (
+            {validLanguages.map(language => (
               <SelectItem key={language.code} value={language.code}>
                 {language.name}
               </SelectItem>
