@@ -15,8 +15,6 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import ProgressBar from '@/components/navigation/ProgressBar';
 import Footer from '@/components/layout/Footer';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
 
 const InputPage = () => {
   const navigate = useNavigate();
@@ -24,7 +22,7 @@ const InputPage = () => {
   const [speakerCount, setSpeakerCount] = useState('1');
   const [gender, setGender] = useState('male');
   const [speakerName, setSpeakerName] = useState('');
-  const [voiceSelection, setVoiceSelection] = useState('voice1');
+  const [voiceSelection, setVoiceSelection] = useState('');
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,18 +52,6 @@ const InputPage = () => {
 
   return (
     <PageContainer>
-      <div className="mb-4">
-        <Button
-          variant="outline"
-          size="sm"
-          className="flex items-center gap-1"
-          onClick={() => navigate('/sessions')}
-        >
-          <ArrowLeft size={16} />
-          Back to Sessions
-        </Button>
-      </div>
-      
       <Header />
       
       <ProgressBar steps={steps} currentStep={0} />
@@ -127,6 +113,7 @@ const InputPage = () => {
                     onChange={setVoiceSelection}
                     label=""
                     languages={[
+                      { code: '', name: 'Select a voice (optional)' },
                       { code: 'voice1', name: 'Voice 1 - Male' },
                       { code: 'voice2', name: 'Voice 2 - Female' },
                       { code: 'voice3', name: 'Voice 3 - Neutral' },
