@@ -9,6 +9,7 @@ import StepNavigation from '@/components/navigation/StepNavigation';
 import ProgressBar from '@/components/navigation/ProgressBar';
 import Footer from '@/components/layout/Footer';
 import AudioPlayer from '@/components/audio/AudioPlayer';
+import ProcessingAnimation from '@/components/animations/ProcessingAnimation';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Download, RefreshCw } from 'lucide-react';
@@ -58,6 +59,22 @@ const SynthesisPage = () => {
 
   const steps = ['Input', 'Transcription', 'Translation', 'Synthesis', 'Validation'];
 
+  if (isGenerating) {
+    return (
+      <PageContainer>
+        <Header />
+        <ProgressBar steps={steps} currentStep={3} />
+        <StepHeading stepNumber={4} title="Speech Synthesis" />
+        
+        <ContentCard className="min-h-[400px] flex items-center justify-center bg-md-surface border border-md-outline-variant">
+          <ProcessingAnimation type="synthesis" />
+        </ContentCard>
+        
+        <Footer />
+      </PageContainer>
+    );
+  }
+
   return (
     <PageContainer>
       <Header />
@@ -66,14 +83,14 @@ const SynthesisPage = () => {
       
       <StepHeading stepNumber={4} title="Speech Synthesis" />
       
-      <ContentCard>
+      <ContentCard className="bg-md-surface border border-md-outline-variant">
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-6">Generating Speech in Hindi</h3>
+          <h3 className="text-lg font-medium mb-6 text-md-on-surface">Generating Speech in Hindi</h3>
           
           {audioGenerated ? (
             <div className="space-y-6">
               <div>
-                <h4 className="text-md font-medium mb-4">Translated Audio</h4>
+                <h4 className="text-md font-medium mb-4 text-md-on-surface">Translated Audio</h4>
                 <AudioPlayer 
                   audioUrl={audioUrl} 
                   allowDownload={false}
@@ -83,7 +100,7 @@ const SynthesisPage = () => {
               <div className="flex">
                 <Button
                   onClick={handleDownload}
-                  className="bg-indic-green hover:bg-indic-green/90 flex gap-1"
+                  className="bg-md-secondary hover:bg-md-secondary/90 text-md-on-secondary flex gap-1"
                 >
                   <Download size={16} /> Download
                 </Button>
@@ -91,7 +108,7 @@ const SynthesisPage = () => {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-gray-500 mb-4">No audio has been generated yet. Click the button below to create synthesized speech.</p>
+              <p className="text-md-on-surface-variant mb-4">No audio has been generated yet. Click the button below to create synthesized speech.</p>
             </div>
           )}
         </div>
@@ -100,12 +117,7 @@ const SynthesisPage = () => {
       <StepNavigation
         onBack={() => navigate('/translation')}
         onNext={handleGenerateSpeech}
-        nextLabel={
-          <div className="flex items-center gap-1">
-            <RefreshCw size={16} className={isGenerating ? "animate-spin" : ""} /> 
-            {isGenerating ? "Generating..." : "Generate Speech"}
-          </div>
-        }
+        nextLabel="Generate Speech"
         showValidate={audioGenerated}
         onValidate={handleValidate}
         loading={isLoading}
